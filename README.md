@@ -1,5 +1,11 @@
 # 🌿 Todo List — Vanilla JavaScript Task Manager
 
+## 🔗 Live Demo
+
+🌐 **[Todo List 직접 사용해 보기](https://txw-22.github.io/todo-list/)**
+
+별도의 설치 없이 웹 브라우저에서 할 일 추가·수정·삭제, 카테고리 관리, 검색 및 정렬 기능을 체험할 수 있습니다.
+
 > **HTML · CSS · JavaScript만으로 구현한 개인 할 일 관리 웹 애플리케이션**  
 > 할 일을 추가하고, 날짜와 카테고리로 정리하고, 검색·정렬·완료 상태를 관리할 수 있습니다.
 
