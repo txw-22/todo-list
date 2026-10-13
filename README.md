@@ -60,8 +60,8 @@
 
 ```bash
 # Git을 사용하는 경우
- git clone https://github.com/today-time/hw_todo.git
- cd hw_todo
+git clone https://github.com/txw-22/todo-list.git
+cd todo-list
 ```
 
 > 로컬 파일 실행 환경에서는 브라우저에 따라 `localStorage` 동작 정책이 다를 수 있습니다. 문제가 있다면 VS Code Live Server 등 로컬 개발 서버로 열어 보세요.
