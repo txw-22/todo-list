@@ -3,20 +3,22 @@
 /* ====================================================================== */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  background-color: #F5F4EF;
+  color: #35382F;
   margin: 0;
   padding: 20px;
   display: flex;
   justify-content: center;
 }
 
+
 .container {
   width: 100%;
   max-width: 700px;
-  background: #fff;
+  background: #FCFBF8;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(53, 56, 047, 0.06);
 }
 
 /* 🚨 수정: 검색 섹션을 항상 보이도록 변경 (display: none 제거) */
@@ -167,13 +169,15 @@ h1 {
   justify-content: space-between;
   padding: 15px;
   margin-bottom: 10px;
-  background-color: #f9f9f9;
-  border-left: 5px solid transparent;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s;
+  background-color: #FCFBF8;
+  border: 1px solid #DEDED5;
+  border-left: 4px solid #7D8F78;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(53, 56, 47, 0.04);
+  transition: background-color 0.2s, border-color 0.2s;
   cursor: pointer;
 }
+
 
 .done .todo-title {
   text-decoration: line-through;
@@ -181,7 +185,8 @@ h1 {
 }
 
 .todo-item:hover {
-  background-color: #f0f0f0;
+  background-color: #F2F1EB;
+  border-color: #D2D4C9;
 }
 
 /* 제목, 카테고리, 마감일 컨테이너 */
@@ -490,4 +495,621 @@ h1 {
   .edit-todo-input {
     max-width: 60%;
   }
+}
+
+/* ===== 새로운 Todo List 레이아웃 ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, "Malgun Gothic", sans-serif;
+  color: #35382F;
+  background-color: #F5F4EF;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 왼쪽 사이드바 */
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  padding: 32px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: #E7E7DF;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 42px;
+}
+
+.brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  color: #FFFFFF;
+  background-color: #7D8F78;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.sidebar-brand h1 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.sidebar-search {
+  margin-bottom: 32px;
+}
+
+.sidebar-search label,
+.sidebar-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #77796F;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #D8D9CF;
+  border-radius: 10px;
+  background-color: #FCFBF8;
+  font-size: 13px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.nav-item,
+.sidebar-settings {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  border-radius: 10px;
+  color: #55584F;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nav-item span,
+.sidebar-settings span {
+  font-size: 17px;
+}
+
+.nav-item:hover,
+.sidebar-settings:hover {
+  background-color: #F5F4EF;
+}
+
+.nav-item.active {
+  color: #42523F;
+  background-color: #FCFBF8;
+  font-weight: bold;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 30px;
+}
+
+/* 오른쪽 메인 영역 */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px clamp(24px, 5vw, 72px);
+}
+
+.main-header {
+  margin-bottom: 36px;
+}
+
+.page-eyebrow {
+  margin: 0 0 12px;
+  color: #7D8F78;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.page-title,
+.main-header h2 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+
+.page-description {
+  margin: 12px 0 0;
+  color: #77796F;
+  font-size: 14px;
+}
+
+/* 할 일 추가 영역 */
+.add-task-panel {
+  margin-bottom: 42px;
+  padding: 20px;
+  border: 1px solid #E5E3DA;
+  border-radius: 18px;
+  background-color: #FCFBF8;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-field {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #DEDED5;
+  border-radius: 10px;
+  color: #35382F;
+  background-color: #FCFBF8;
+  font-size: 13px;
+  outline: none;
+}
+
+.input-field:focus,
+.sidebar-search input:focus {
+  border-color: #7D8F78;
+  box-shadow: 0 0 0 3px rgba(125, 143, 120, 0.13);
+}
+
+#todo-title-input {
+  flex: 1;
+}
+
+#category-select {
+  width: 130px;
+}
+
+#due-date-input {
+  width: 145px;
+}
+
+#add-button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  color: #FFFFFF;
+  background-color: #7D8F78;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#add-button:hover {
+  background-color: #687B63;
+}
+
+/* 목록 제목과 정렬 */
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.list-toolbar h3 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.list-toolbar p {
+  margin: 7px 0 0;
+  color: #77796F;
+  font-size: 12px;
+}
+
+.sort-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.sort-section label {
+  color: #77796F;
+  font-size: 12px;
+}
+
+#sort-by {
+  max-width: 170px;
+}
+
+/* 할 일 카드 */
+.todolist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  padding: 18px 20px;
+  border: 1px solid #E5E3DA;
+  border-left: 3px solid #B8C3B2;
+  border-radius: 14px;
+  background-color: #FCFBF8;
+  box-shadow: 0 2px 6px rgba(53, 56, 47, 0.025);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:hover {
+  border-color: #C8D0C2;
+  box-shadow: 0 5px 14px rgba(53, 56, 47, 0.06);
+  transform: translateY(-1px);
+}
+
+.todo-title {
+  color: #35382F;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.done .todo-title {
+  color: #96988F;
+  text-decoration: line-through;
+}
+
+.category-tag {
+  padding: 4px 9px;
+  border-radius: 20px;
+  background-color: #E8EDE5;
+  color: #596B54;
+  font-size: 11px;
+}
+
+.due-date {
+  color: #77796F;
+  font-size: 12px;
+}
+
+.control-button {
+  padding: 6px 9px;
+  border: 1px solid #E2E1D8;
+  border-radius: 7px;
+  color: #62645B;
+  background-color: #FCFBF8;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  border-color: #AAB7A4;
+  background-color: #F0F1E9;
+}
+
+/* 카테고리 관리 모달 */
+#category-modal-overlay {
+  background-color: rgba(45, 47, 40, 0.35);
+}
+
+.category-management {
+  border: 1px solid #E5E3DA;
+  border-radius: 18px;
+  background-color: #FCFBF8;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+}
+
+#close-category-modal {
+  border: none;
+  border-radius: 8px;
+  color: #62645B;
+  background-color: #F0EFE8;
+  cursor: pointer;
+}
+
+#add-category-button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 9px;
+  color: #FFFFFF;
+  background-color: #7D8F78;
+  cursor: pointer;
+}
+
+.category-chip {
+  border-radius: 20px;
+}
+
+/* 작은 화면 대응 */
+@media (max-width: 760px) {
+  .sidebar {
+    width: 190px;
+    min-width: 190px;
+    padding: 24px 12px;
+  }
+
+  .main-content {
+    padding: 36px 20px;
+  }
+
+  .input-group {
+    flex-wrap: wrap;
+  }
+
+  #todo-title-input {
+    flex-basis: 100%;
+  }
+
+  #category-select,
+  #due-date-input {
+    flex: 1;
+    width: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .sidebar-brand {
+    margin-bottom: 20px;
+  }
+
+  .sidebar-search {
+    margin-bottom: 18px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .nav-item {
+    width: auto;
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .sidebar-bottom {
+    padding-top: 12px;
+  }
+
+  .main-content {
+    padding: 28px 16px;
+  }
+
+  .main-header h2 {
+    font-size: 27px;
+  }
+
+  .list-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .todo-item {
+    padding: 15px;
+  }
+}
+
+/* 카테고리 설정 버튼 스타일 통일 */
+.sidebar-settings {
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #55584F;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.sidebar-settings:hover {
+  border-color: #D8D9CF;
+  color: #42523F;
+  background-color: #F5F4EF;
+}
+
+.sidebar-settings:focus-visible {
+  outline: 2px solid #7D8F78;
+  outline-offset: 2px;
+}
+
+.sidebar-settings span {
+  flex-shrink: 0;
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* 카테고리 관리 모달 제목에만 적용 */
+.category-management h2 {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* 모달 내부 버튼과 입력창 */
+.category-management button,
+.category-management input {
+  font-family: inherit;
+  font-size: 13px;
+}
+
+#close-category-modal {
+  font-size: 14px;
+  line-height: 1;
+}
+
+#add-category-button {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===== 카테고리 모달 디자인 통일 ===== */
+
+.category-management {
+  padding: 28px;
+  border: 1px solid #E5E3DA;
+  border-radius: 20px;
+  background: #FCFBF8;
+  box-shadow: 0 18px 50px rgba(53, 56, 47, 0.14);
+}
+
+.category-management h2 {
+  margin: 0 0 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E5E3DA;
+  color: #35382F;
+  font-size: 20px;
+  text-align: center;
+}
+
+#close-category-modal {
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #62645B;
+  background: #F0EFE8;
+  font-size: 15px;
+}
+
+#close-category-modal:hover {
+  color: #35382F;
+  background: #E7E7DF;
+}
+
+.category-input-group {
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#new-category-name {
+  min-width: 0;
+  height: 42px;
+  border: 1px solid #DEDED5;
+  border-radius: 10px;
+  background: #FFFFFF;
+  font-size: 13px;
+}
+
+.category-input-group input[type="color"] {
+  width: 48px;
+  height: 42px;
+  padding: 4px;
+  border: 1px solid #DEDED5;
+  border-radius: 10px;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+#add-category-button {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  background: #7D8F78;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+#add-category-button:hover {
+  background: #687B63;
+}
+
+#category-list-display {
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #E8E6DE;
+  border-radius: 12px;
+  background: #F5F4EF;
+}
+
+.category-chip {
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.category-chip button {
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+/* 사이드바 카테고리 설정 버튼 최종 수정 */
+.sidebar .sidebar-bottom button#open-category-settings {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+
+  font-family: Arial, "Malgun Gothic", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+
+  color: #55584F;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: none;
+  transform: none;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sidebar .sidebar-bottom button#open-category-settings:hover {
+  color: #42523F;
+  background-color: #F5F4EF;
+  border-color: #D8D9CF;
+}
+
+.sidebar .sidebar-bottom button#open-category-settings span {
+  font-size: 15px !important;
+  line-height: 1 !important;
+  flex-shrink: 0;
 }

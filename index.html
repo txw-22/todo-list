@@ -11,52 +11,116 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="header-content">
-      <h1>Todo List ✒️</h1>
-      <div class="header-controls">
-        <button id="open-category-settings" title="카테고리 설정">⚙️</button>
+  <div class="app-layout">
+
+    <!-- 왼쪽 사이드바 -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon">✓</span>
+        <h1>Todo List</h1>
       </div>
-    </div>
 
-    <div id="search-section">
-      <input type="text" id="search-input" class="input-field" placeholder="검색할 할 일 제목을 입력하세요...">
-    </div>
+      <div class="sidebar-search">
+        <label for="search-input">검색</label>
+        <input type="text" id="search-input" class="input-field" placeholder="할 일 검색...">
+      </div>
 
-    <div class="input-group">
-      <input type="text" id="todo-title-input" class="input-field" placeholder="할 일 제목" maxlength="30">
-      <select id="category-select" class="input-field"></select>
-      <input type="date" id="due-date-input" class="input-field" placeholder="마감일 선택">
-      <button id="add-button">✚</button>
-    </div>
+      <nav class="sidebar-nav" aria-label="할 일 메뉴">
+        <p class="sidebar-label">WORKSPACE</p>
 
-    <div class="sort-section">
-      <label for="sort-by">정렬 기준:</label>
-      <select id="sort-by" class="input-field">
-        <option value="manual">수동 순서</option>
-        <option value="dueDateAsc">마감일 빠른 순</option>
-        <option value="dueDateDesc">마감일 늦은 순</option>
-        <option value="category">카테고리 순</option>
-        <option value="idDesc">최신 순</option>
-      </select>
-    </div>
+        <button type="button" class="nav-item active" data-view="all">
+          <span>▦</span>
+          전체 할 일
+        </button>
 
-    <ul id="todolist-ul" class="todolist">
-    </ul>
+        <button type="button" class="nav-item" data-view="today">
+          <span>☀</span>
+          오늘
+        </button>
+
+        <button type="button" class="nav-item" data-view="upcoming">
+          <span>▣</span>
+          예정된 할 일
+        </button>
+        <button type="button" class="nav-item" data-view="completed">
+          <span>✓</span>
+          완료된 할 일
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button type="button" id="open-category-settings" class="sidebar-settings" title="카테고리 설정">
+          <span>⚙</span>
+          카테고리 설정
+        </button>
+      </div>
+    </aside>
+
+    <!-- 오른쪽 메인 영역 -->
+    <main class="main-content">
+      <header class="main-header">
+        <div>
+          <p class="page-eyebrow">MY WORKSPACE</p>
+          <h2 id="page-title">전체 할 일</h2>
+          <p class="page-description">오늘도 하나씩 차근차근 해내 봐요.</p>
+        </div>
+      </header>
+
+      <!-- 할 일 추가 -->
+      <section class="add-task-panel" aria-label="할 일 추가">
+        <div class="input-group">
+          <input type="text" id="todo-title-input" class="input-field" placeholder="새로운 할 일을 입력하세요..." maxlength="30">
+
+          <select id="category-select" class="input-field"></select>
+
+          <input type="date" id="due-date-input" class="input-field" aria-label="마감일 선택">
+
+          <button type="button" id="add-button" aria-label="할 일 추가">
+            + 추가
+          </button>
+        </div>
+      </section>
+
+      <!-- 목록 도구 -->
+      <section class="list-toolbar">
+        <div>
+          <h3>할 일 목록</h3>
+          <p>해야 할 일을 확인하고 관리해 보세요.</p>
+        </div>
+
+        <div class="sort-section">
+          <label for="sort-by">정렬</label>
+          <select id="sort-by" class="input-field">
+            <option value="manual">수동 순서</option>
+            <option value="dueDateAsc">마감일 빠른 순</option>
+            <option value="dueDateDesc">마감일 늦은 순</option>
+            <option value="category">카테고리 순</option>
+            <option value="idDesc">최신 순</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- 기존 JavaScript가 사용하는 목록 -->
+      <ul id="todolist-ul" class="todolist"></ul>
+    </main>
   </div>
 
+  <!-- 기존 카테고리 관리 모달 -->
   <div id="category-modal-overlay">
     <div class="category-management">
-      <button id="close-category-modal">X</button>
+      <button type="button" id="close-category-modal">X</button>
       <h2>⚙️ 카테고리 관리</h2>
+
       <div class="category-input-group">
         <input type="text" id="new-category-name" class="input-field" placeholder="새 카테고리 이름">
-        <input type="color" id="new-category-color" value="#3b82f6" class="input-field"
-          style="width: 50px; padding: 0;">
-        <button id="add-category-button">✚</button>
+
+        <input type="color" id="new-category-color" value="#3b82f6" class="input-field" style="width: 50px; padding: 0;"
+          aria-label="카테고리 색상">
+
+        <button type="button" id="add-category-button">+ 추가</button>
       </div>
-      <div id="category-list-display">
-      </div>
+
+      <div id="category-list-display"></div>
     </div>
   </div>
 

@@ -15,6 +15,7 @@ let todoList = [
 let lastNo = todoList.length > 0 ? Math.max(...todoList.map(item => item.id)) : 0;
 
 // ----------------------------------------------------------------------
+
 // --- 로컬 스토리지 저장 및 불러오기 함수 --- 
 // ----------------------------------------------------------------------
 
@@ -27,26 +28,42 @@ function saveToLocalStorage() {
   console.log("Data saved to LocalStorage.");
 }
 
+
 /**
  * localStorage에서 데이터를 불러와 전역 변수를 초기화
  */
 function loadFromLocalStorage() {
-  const savedTodos = localStorage.getItem('todoList');
-  const savedCategories = localStorage.getItem('categories');
+  try {
+    const savedTodos = localStorage.getItem('todoList');
+    const savedCategories = localStorage.getItem('categories');
 
-  if (savedTodos) {
-    todoList = JSON.parse(savedTodos);
-    // lastNo 업데이트
-    lastNo = todoList.length > 0 ? Math.max(...todoList.map(item => item.id)) : 0;
-    console.log("Todo List loaded from LocalStorage.");
-  } else {
-    // 저장된 데이터가 없으면 초기 데이터로 저장
-    saveToLocalStorage();
-  }
+    if (savedTodos) {
+      const parsedTodos = JSON.parse(savedTodos);
 
-  if (savedCategories) {
-    categories = JSON.parse(savedCategories);
-    console.log("Categories loaded from LocalStorage.");
+      if (Array.isArray(parsedTodos)) {
+        todoList = parsedTodos;
+      }
+
+      lastNo = todoList.length > 0
+        ? Math.max(...todoList.map(item => item.id))
+        : 0;
+
+      console.log("Todo List loaded from LocalStorage.");
+    } else {
+      saveToLocalStorage();
+    }
+
+    if (savedCategories) {
+      const parsedCategories = JSON.parse(savedCategories);
+
+      if (Array.isArray(parsedCategories)) {
+        categories = parsedCategories;
+      }
+
+      console.log("Categories loaded from LocalStorage.");
+    }
+  } catch (error) {
+    console.error("저장된 데이터를 불러오는 중 오류가 발생했습니다.", error);
   }
 }
 
@@ -117,8 +134,15 @@ function getTodoItemElem(item) {
   const dueDateElem = document.createElement('span');
   dueDateElem.classList.add('due-date');
 
-  const today = new Date().toISOString().split('T')[0];
+  // const today = new Date().toISOString().split('T')[0];
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const today = `${year}-${month}-${day}`;
   const isOverdue = item.dueDate && !item.done && item.dueDate < today;
+
 
   if (item.dueDate) {
     dueDateElem.textContent = `마감: ${item.dueDate}`;
@@ -492,18 +516,54 @@ function editItem(id) {
 /**
  * 현재 선택된 정렬 기준에 따라 todoList를 정렬하고 화면을 업데이트
  */
-function sortAndShowList() {
-  const searchInput = document.getElementById('search-input');
+// 현재 선택된 사이드바 메뉴
+let currentView = 'all';
 
-  if (searchInput && searchInput.value.trim() !== '') {
-    filterTodoList();
-    return;
-  }
+// 오늘 날짜를 YYYY-MM-DD 형식으로 반환
+function getLocalToday() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+function sortAndShowList() {
+  const query = document
+    .getElementById('search-input')
+    .value.trim().toLowerCase();
 
   const sortBy = document.getElementById('sort-by').value;
+  // 1. 선택된 메뉴에 따라 할 일 필터링
+  const today = getLocalToday();
 
-  // 1. 데이터 정렬
-  const sortedList = [...todoList].sort((a, b) => {
+  const filteredList = todoList.filter(item => {
+    // 오늘 마감인 미완료 할 일
+    if (currentView === 'today') {
+      return item.dueDate === today;
+    }
+
+    // 내일 이후 마감인 미완료 할 일
+    if (currentView === 'upcoming') {
+      return item.dueDate && item.dueDate > today;
+    }
+
+    // 완료된 할 일
+    if (currentView === 'completed') {
+      return item.done === true;
+    }
+    // 전체 할 일
+    return true;
+  });
+
+  // 2. 선택한 메뉴의 목록에서 검색어 필터링
+  const matchingList = filteredList.filter(item =>
+    item.title.toLowerCase().includes(query)
+  );
+
+  // 3. 검색 결과 정렬
+  const sortedList = [...matchingList].sort((a, b) => {
     if (sortBy === 'manual') {
       if (a.done !== b.done) {
         return a.done ? 1 : -1;
@@ -535,7 +595,7 @@ function sortAndShowList() {
     return 0;
   });
 
-  // 2. 화면 출력
+  // 4. 화면 출력
   const todoListUl = document.getElementById('todolist-ul');
   todoListUl.innerHTML = '';
 
@@ -633,9 +693,9 @@ function toggleDone(id) {
   if (isDone) {
     const sElem = document.createElement('s');
     sElem.textContent = titleEl.textContent;
-    titleEl.textContent = ''; 
+    titleEl.textContent = '';
     titleEl.appendChild(sElem);
-    targetLi.classList.add('done'); 
+    targetLi.classList.add('done');
   } else {
     const sElem = titleEl.firstElementChild;
     if (sElem && sElem.tagName === 'S') {
@@ -841,7 +901,7 @@ function setupEventListeners() {
 
   // 2. 정렬 및 검색 섹션
   document.getElementById('sort-by').addEventListener('change', sortAndShowList);
-  document.getElementById('search-input').addEventListener('keyup', filterTodoList);
+  document.getElementById('search-input').addEventListener('input', sortAndShowList);
 
   // 3. 카테고리 모달 섹션
   document.getElementById('open-category-settings').addEventListener('click', openCategoryModal);
@@ -881,3 +941,34 @@ window.onload = function () {
   // 💡 모든 이벤트 리스너를 동적으로 연결
   setupEventListeners();
 };
+
+// 사이드바 메뉴 클릭 이벤트
+document.querySelectorAll('.sidebar-nav .nav-item').forEach(button => {
+  button.addEventListener('click', () => {
+    // 클릭한 버튼의 메뉴 종류 가져오기
+    currentView = button.dataset.view;
+
+    // 기존 선택 표시 제거
+    document.querySelectorAll('.sidebar-nav .nav-item').forEach(navButton => {
+      navButton.classList.remove('active');
+    });
+
+    // 클릭한 버튼에 선택 표시
+    button.classList.add('active');
+
+    // 페이지 제목 변경
+    const pageTitle = document.getElementById('page-title');
+
+    const titles = {
+      all: '전체 할 일',
+      today: '오늘',
+      upcoming: '예정된 할 일',
+      completed: '완료된 할 일'
+    };
+
+    pageTitle.textContent = titles[currentView];
+
+    // 목록 다시 출력
+    sortAndShowList();
+  });
+});
