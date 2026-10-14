@@ -1,16 +1,11 @@
-/*
- * Todo List | styles.css
- * 데스크톱 UI와 모바일 카드 전체 너비를 유지한 정리본.
- * 스타일은 영역별로 구성하고, 520px 이하 모바일 규칙을 한곳에 모았습니다.
- */
-
-
-/* ===== 01. 기본 설정 ===== */
+/* Todo List | Desktop / responsive CSS, grouped by UI section. */
 
 * {
   box-sizing: border-box;
 }
 
+
+/* 01. 기본 요소 */
 body {
   margin: 0;
   padding: 0;
@@ -33,8 +28,7 @@ h1 {
 }
 
 
-/* ===== 02. 사이드바 및 메뉴 ===== */
-
+/* 02. 사이드바 및 레이아웃 */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -83,6 +77,7 @@ h1 {
 }
 
 .sidebar-search label,
+
 .sidebar-label {
   display: block;
   margin-bottom: 10px;
@@ -113,6 +108,7 @@ h1 {
 }
 
 .nav-item,
+
 .sidebar-settings {
   width: 100%;
   padding: 12px;
@@ -129,11 +125,13 @@ h1 {
 }
 
 .nav-item span,
+
 .sidebar-settings span {
   font-size: 17px;
 }
 
 .nav-item:hover,
+
 .sidebar-settings:hover {
   background-color: #F5F4EF;
 }
@@ -216,8 +214,7 @@ h1 {
 }
 
 
-/* ===== 03. 메인 영역 및 입력 폼 ===== */
-
+/* 03. 메인 콘텐츠 */
 .main-content {
   flex: 1;
   min-width: 0;
@@ -239,6 +236,7 @@ h1 {
 }
 
 .page-title,
+
 .main-header h2 {
   margin: 0;
   font-size: 32px;
@@ -285,6 +283,7 @@ h1 {
 }
 
 .input-field:focus,
+
 .sidebar-search input:focus {
   border-color: #7D8F78;
   box-shadow: 0 0 0 3px rgba(125, 143, 120, 0.13);
@@ -296,6 +295,7 @@ h1 {
 }
 
 #category-select,
+
 #due-date-input {
   width: 150px;
   flex-shrink: 0;
@@ -329,8 +329,7 @@ h1 {
 }
 
 
-/* ===== 04. 할 일 목록 및 카드 ===== */
-
+/* 04. 목록과 카드 */
 .list-toolbar {
   display: flex;
   align-items: center;
@@ -487,8 +486,7 @@ h1 {
 }
 
 
-/* ===== 05. 카테고리 모달 ===== */
-
+/* 05. 카테고리 관리 모달 */
 #category-modal-overlay {
   position: fixed;
   top: 0;
@@ -553,6 +551,7 @@ h1 {
 }
 
 .category-management button,
+
 .category-management input {
   font-family: inherit;
   font-size: 13px;
@@ -644,17 +643,12 @@ h1 {
   margin-bottom: 0;
 }
 
-
-/* ===== 06. 공통 화면 너비 ===== */
-
 html,
+
 body {
   width: 100%;
   min-width: 0;
 }
-
-
-/* ===== 반응형 (min-width: 601px) ===== */
 
 @media (min-width: 601px) {
   .todo-title {
@@ -665,9 +659,6 @@ body {
     flex-shrink: 0;
   }
 }
-
-
-/* ===== 반응형 (max-width: 600px) ===== */
 
 @media (max-width: 600px) {
   .todo-item {
@@ -709,12 +700,14 @@ body {
   }
 
   #todo-title-input,
+
   #add-button {
     width: 100%;
     min-width: unset;
   }
 
   #category-select,
+
   #due-date-input {
     min-width: unset;
   }
@@ -754,9 +747,6 @@ body {
   }
 }
 
-
-/* ===== 반응형 (max-width: 760px) ===== */
-
 @media (max-width: 760px) {
   .sidebar {
     width: 190px;
@@ -773,14 +763,12 @@ body {
   }
 
   #category-select,
+
   #due-date-input {
     flex: 1;
     width: auto;
   }
 }
-
-
-/* ===== 반응형 (max-width: 600px) : 입력 폼 보강 ===== */
 
 @media (max-width: 600px) {
   .add-task-panel {
@@ -796,8 +784,11 @@ body {
   }
 
   .add-task-panel #todo-title-input,
+
   .add-task-panel #category-select,
+
   .add-task-panel #due-date-input,
+
   .add-task-panel #add-button {
     display: block;
     flex: none;
@@ -817,9 +808,6 @@ body {
     height: 44px;
   }
 }
-
-
-/* ===== 반응형 (max-width: 520px) : 모바일 메뉴·카드·폼 ===== */
 
 @media (max-width: 520px) {
   .app-layout {
@@ -922,8 +910,11 @@ body {
   }
 
   #todo-title-input,
+
   #category-select,
+
   #due-date-input,
+
   #add-button {
     display: block;
     flex: 0 0 auto;
@@ -948,14 +939,15 @@ body {
   }
 
   .add-task-panel,
+
   .list-toolbar,
+
   .todolist {
     width: 100%;
     min-width: 0;
   }
 }
 
-/* iPhone Safari 날짜 입력창 보정 */
 @media (max-width: 520px) {
   .add-task-panel .input-group #due-date-input {
     display: block;
@@ -981,56 +973,58 @@ body {
   }
 }
 
-@media (max-width: 520px) {
-  .date-label {
-    width: 100%;
-    color: #77796F;
-    font-size: 13px;
-    font-weight: 500;
-  }
-}
 
-@media (min-width: 521px) {
-  .date-label {
-    display: none;
-  }
-}
-
-/* ===== 날짜 입력창 및 안내 문구 ===== */
-
+/* 06. 날짜 선택 안내 */
 .date-input-wrapper {
   position: relative;
   width: 145px;
   min-width: 0;
-  flex-shrink: 0;
+  flex: 0 0 145px;
 }
 
 .date-input-wrapper #due-date-input {
+  display: block;
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .date-placeholder {
   display: none;
 }
 
-/* 모바일 날짜 입력창 */
-@media (max-width: 520px) {
+@media (max-width: 600px) {
   .add-task-panel .date-input-wrapper {
     width: 100%;
     max-width: 100%;
-    flex: none;
+    flex: 0 0 auto;
   }
 
   .add-task-panel .date-input-wrapper #due-date-input {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     height: 44px;
     box-sizing: border-box;
     padding: 0 12px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
-  .date-placeholder {
+  .date-input-wrapper:not(.has-value) #due-date-input::-webkit-datetime-edit {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .date-input-wrapper.has-value #due-date-input::-webkit-datetime-edit {
+    color: #35382F;
+    -webkit-text-fill-color: #35382F;
+  }
+
+  .date-input-wrapper:not(.has-value):not(:focus-within) .date-placeholder {
+    display: block;
     position: absolute;
     top: 50%;
     left: 12px;
@@ -1042,35 +1036,12 @@ body {
     pointer-events: none;
   }
 
-  .date-input-wrapper:not(.has-value):not(:focus-within)
-  .date-placeholder {
-    display: block;
-  }
-}
-
-/* 모바일 날짜 입력창: 기본 문구와 커스텀 문구 중복 방지 */
-@media (max-width: 520px) {
-  /* 날짜 미선택: 브라우저 기본 날짜 글자 숨기기 */
-  .date-input-wrapper:not(.has-value) #due-date-input::-webkit-datetime-edit {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+  #due-date-input::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: left;
   }
 
-  /* 날짜 선택 완료: 실제 날짜 표시 */
-  .date-input-wrapper.has-value #due-date-input::-webkit-datetime-edit {
-    color: #35382F;
-    -webkit-text-fill-color: #35382F;
-  }
-
-  /* 안내 문구는 입력창 내부에만 표시 */
-  .date-input-wrapper:not(.has-value):not(:focus-within) .date-placeholder {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-    margin: 0;
-    color: #999999;
-    pointer-events: none;
+  #due-date-input::-webkit-datetime-edit {
+    padding: 0;
   }
 }
