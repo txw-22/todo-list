@@ -73,8 +73,11 @@
 
           <select id="category-select" class="input-field"></select>
 
-          <input type="date" id="due-date-input" class="input-field" aria-label="마감일 선택">
-
+          <div class="date-input-wrapper">
+            <input type="date" id="due-date-input" class="input-field" aria-label="마감일 선택">
+            <span class="date-placeholder" aria-hidden="true">년-월-일</span>
+          </div>
+          
           <button type="button" id="add-button" aria-label="할 일 추가">
             + 추가
           </button>

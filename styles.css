@@ -980,3 +980,97 @@ body {
     padding: 0;
   }
 }
+
+@media (max-width: 520px) {
+  .date-label {
+    width: 100%;
+    color: #77796F;
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
+
+@media (min-width: 521px) {
+  .date-label {
+    display: none;
+  }
+}
+
+/* ===== 날짜 입력창 및 안내 문구 ===== */
+
+.date-input-wrapper {
+  position: relative;
+  width: 145px;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.date-input-wrapper #due-date-input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.date-placeholder {
+  display: none;
+}
+
+/* 모바일 날짜 입력창 */
+@media (max-width: 520px) {
+  .add-task-panel .date-input-wrapper {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  .add-task-panel .date-input-wrapper #due-date-input {
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 12px;
+  }
+
+  .date-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    margin: 0;
+    color: #999999;
+    font-size: 13px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .date-input-wrapper:not(.has-value):not(:focus-within)
+  .date-placeholder {
+    display: block;
+  }
+}
+
+/* 모바일 날짜 입력창: 기본 문구와 커스텀 문구 중복 방지 */
+@media (max-width: 520px) {
+  /* 날짜 미선택: 브라우저 기본 날짜 글자 숨기기 */
+  .date-input-wrapper:not(.has-value) #due-date-input::-webkit-datetime-edit {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* 날짜 선택 완료: 실제 날짜 표시 */
+  .date-input-wrapper.has-value #due-date-input::-webkit-datetime-edit {
+    color: #35382F;
+    -webkit-text-fill-color: #35382F;
+  }
+
+  /* 안내 문구는 입력창 내부에만 표시 */
+  .date-input-wrapper:not(.has-value):not(:focus-within) .date-placeholder {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    margin: 0;
+    color: #999999;
+    pointer-events: none;
+  }
+}
