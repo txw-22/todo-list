@@ -954,3 +954,29 @@ body {
     min-width: 0;
   }
 }
+
+/* iPhone Safari 날짜 입력창 보정 */
+@media (max-width: 520px) {
+  .add-task-panel .input-group #due-date-input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: none;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  #due-date-input::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: left;
+  }
+
+  #due-date-input::-webkit-datetime-edit {
+    padding: 0;
+  }
+}
